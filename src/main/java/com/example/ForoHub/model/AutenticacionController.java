@@ -14,10 +14,10 @@ import com.example.ForoHub.infra.security.TokenService;
 @RequestMapping("/login")
 public class AutenticacionController {
 
-    @Autowired // <--- VERIFICA QUE ESTA LÍNEA ESTÉ AQUÍ
+    @Autowired
     private AuthenticationManager manager;
 
-    @Autowired // <--- Y ESTA TAMBIÉN
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping
@@ -25,12 +25,10 @@ public class AutenticacionController {
         var authToken = new UsernamePasswordAuthenticationToken(datos.login(), datos.clave());
         var usuarioAutenticado = manager.authenticate(authToken);
 
-        // Aquí es donde te daba el error porque tokenService era null
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
 
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
     }
 
-    // Agrega esto al final de AutenticacionController.java
     record DatosJWTToken(String jwTtoken) {}
 }
