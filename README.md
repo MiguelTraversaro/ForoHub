@@ -20,6 +20,18 @@ ForoHub es una API REST diseñada para replicar el funcionamiento de un foro de 
 * **Auth0 JWT**: Biblioteca para generación y validación de tokens.
 * **Lombok**: Reducción de código repetitivo (Getters, Setters, Constructores).
 
+## 📋 Requisitos e Instalación
+1. Clona el repositorio en tu máquina local.
+2. Configura las variables de entorno o el archivo `src/main/resources/application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/forohub_api
+   spring.datasource.username=tu_usuario
+   spring.datasource.password=tu_contraseña
+   spring.jpa.hibernate.ddl-auto=validate
+   spring.jpa.show-sql=true
+   api.security.secret=12345678
+   spring.flyway.baseline-on-migrate=true
+
 ## 🔐 Configuración de Seguridad e Inicio de Sesión
 La API implementa un esquema de autenticación **Stateless**:
 1. El usuario envía sus credenciales al endpoint `/login`.
@@ -31,6 +43,7 @@ La API implementa un esquema de autenticación **Stateless**:
 ## 🧪 Endpoints Principales
 * POST: 	   /login	Autentica un usuario y retorna el token JWT	Público
 * GET:    	 /topicos	Lista todos los tópicos registrados	Privado
+* GET:    	 /topicos/{id}	Detalla un tópico existente
 * POST: 	   /topicos	Registra un nuevo tópico	Privado
 * PUT:  	   /topicos/{id}	Actualiza la información de un tópico existente	Privado
 * DELETE:	   /topicos/{id}	Realiza la eliminación de un tópico	Privado
